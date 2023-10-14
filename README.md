@@ -26,7 +26,7 @@ It is necessary to document some assumptions to build a satisfying solution.
 2. Information can only be added, not modified.
 3. There will be no database migration
 
-###Entity Relationship Diagram
+### Entity Relationship Diagram
 <br>
 
 ![SVG-Bild](https://raw.githubusercontent.com/CarlKuhligk/WHZ-Project-Time-Manger/main/doc/ERD%20-%20Simple.drawio.svg)
