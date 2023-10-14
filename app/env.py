@@ -6,5 +6,5 @@ DB_HOST = os.getenv("DB_HOST", "172.0.4.2")
 DB_PORT = os.getenv("DB_PORT", "3307")
 DATABASE = os.getenv("DATABASE", "project-time-manager")
 
-GIT = os.getenv("GIT", "https://github.com")
-PHPMYADMIN= os.getenv("GIT", "https://www.phpmyadmin.net/")
+GIT = os.getenv("GIT_URL", "https://github.com")
+PHPMYADMIN= os.getenv("PHPMYADMIN_URL", "https://www.phpmyadmin.net/")

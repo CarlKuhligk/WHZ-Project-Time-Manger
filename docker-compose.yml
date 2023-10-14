@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3'
 services:
   project-time-manager:
     build: .
@@ -13,8 +13,8 @@ services:
       DB_HOST : mariadb
       DB_PORT : 3306
       DATABASE : project-time-manager
-      GIT: ${GIT}
-      PHPMYADMIN: ${PHPMYADMIN}
+      GIT_URL: ${GIT_URL}
+      PHPMYADMIN_URL: ${PHPMYADMIN_URL}
     networks:
       db_net:
 
