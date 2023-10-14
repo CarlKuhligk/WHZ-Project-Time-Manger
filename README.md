@@ -29,7 +29,14 @@ It is necessary to document some assumptions to build a satisfying solution.
 ### Entity Relationship Diagram
 <br>
 
-![SVG-Bild](https://raw.githubusercontent.com/CarlKuhligk/WHZ-Project-Time-Manger/main/doc/ERD%20-%20Simple.drawio.svg)
+![SVG-Bild](https://raw.githubusercontent.com/CarlKuhligk/WHZ-Project-Time-Manger/main/doc/ERD%20-%20Simple.drawio.png)
+
+#### phpMyAdmin View
+![SVG-Bild](https://raw.githubusercontent.com/CarlKuhligk/WHZ-Project-Time-Manger/main/doc/tAXTvzDYnj.png)
+
+#### Chen Notation
+
+![SVG-Bild](https://raw.githubusercontent.com/CarlKuhligk/WHZ-Project-Time-Manger/main/doc/ERD%20Chen.drawio.png)
 
 ### Dataprocessing
 An interface allows the user to create new records.
@@ -40,7 +47,7 @@ The project analysis is performed with simple sql commands. [Here you can see th
 
 The webinterface is created with flask. The diagrams are created with pltoly. The python database interaction is realized with sqlalchemy. phpMyAdmin is used to see what is going on in the database.
 
-![web ui](https://raw.githubusercontent.com/CarlKuhligk/WHZ-Project-Time-Manger/main/doc/sn7hTxdYdJ.png)
+![web ui](https://raw.githubusercontent.com/CarlKuhligk/WHZ-Project-Time-Manger/main/doc/gdjIC7iQB7.png)
 
 ### Demo
 
