@@ -14,11 +14,11 @@ def create_dataframe(data, columns, dtypes):
 def get_total_time_cost_group_by_department_df():
     total_time_cost_group_by_department = db.session.execute(
         querry.total_time_cost_group_by_department
-    )
-    columns = ["Department", "Time", "Amount"]
+    ).all()
+
     return create_dataframe(
         total_time_cost_group_by_department,
-        columns,
+        ["Department", "Time", "Amount"],
         [str, float, float],
     )
 
@@ -26,11 +26,10 @@ def get_total_time_cost_group_by_department_df():
 def get_total_time_cost_group_by_employee_df():
     total_time_cost_group_by_employee = db.session.execute(
         querry.total_time_cost_group_by_employee
-    )
-    columns = ["Employee", "Time", "Amount"]
+    ).all()
     return create_dataframe(
         total_time_cost_group_by_employee,
-        columns,
+        ["Employee", "Time", "Amount"],
         [str, float, float],
     )
 
@@ -38,11 +37,11 @@ def get_total_time_cost_group_by_employee_df():
 def get_total_time_cost_group_by_category_df():
     total_time_cost_group_by_category = db.session.execute(
         querry.total_time_cost_group_by_category
-    )
-    columns = ["Category", "Time", "Amount"]
+    ).all()
+
     return create_dataframe(
         total_time_cost_group_by_category,
-        columns,
+        ["Category", "Time", "Amount"],
         [str, float, float],
     )
 
@@ -72,7 +71,7 @@ def get_summary_chats_as_html():
             labels=employee_df["Employee"],
             values=employee_df["Amount"],
             name="Employee",
-            customdata=department_df["Time"],
+            customdata=employee_df["Time"],
         ),
         1,
         2,
@@ -82,7 +81,7 @@ def get_summary_chats_as_html():
             labels=category_df["Category"],
             values=category_df["Amount"],
             name="Category",
-            customdata=department_df["Time"],
+            customdata=category_df["Time"],
         ),
         1,
         3,
@@ -118,11 +117,11 @@ def get_project_time_cost_group_by_employee_df():
     project_time_cost_group_by_employee = db.session.execute(
         querry.project_time_cost_group_by_employee
     )
-    columns = ["Project", "Employee", "Time", "Amount"]
+    columns = ["Project", "Employee", "Time", "Amount", "Type"]
     return create_dataframe(
         project_time_cost_group_by_employee,
         columns,
-        [str, str, float, float],
+        [str, str, float, float, str],
     )
 
 
@@ -131,6 +130,7 @@ def get_project_chats_as_html():
     department_grouped = department_df.groupby("Project")
     employee_dt = get_project_time_cost_group_by_employee_df()
     employee_grouped = employee_dt.groupby("Project")
+
     project_names = list(department_grouped.groups.keys())
     charts = []
 
@@ -141,7 +141,7 @@ def get_project_chats_as_html():
         fig = make_subplots(
             rows=1,
             cols=2,
-            specs=[[{"type": "domain"}, {"type": "domain"}]],
+            specs=[[{"type": "domain"}, {"type": "bar"}]],
         )
         fig.add_trace(
             go.Pie(
@@ -153,18 +153,36 @@ def get_project_chats_as_html():
             1,
             1,
         )
-        fig.add_trace(
-            go.Pie(
-                labels=employee_data["Employee"],
-                values=employee_data["Amount"],
-                name="Employee",
-                customdata=employee_data["Time"],
-            ),
-            1,
-            2,
-        )
+        fig.update_xaxes(title_text="Departments", row=1, col=2)
         fig.update_traces(
-            hovertemplate="%{label}: %{percent} <br> Amount: %{value:.2f}: € <br> Time: %{customdata:.2f} h",
+            hovertemplate="%{label}<br>Amount: %{value:.2f}: €<br>Time: %{customdata:.2f} h",
+            row=1,
+            col=1,
         )
+
+        employee_grouped_types = employee_data.groupby("Type")
+        activity_type_names = list(employee_grouped_types.groups.keys())
+
+        for activity_type_name in activity_type_names:
+            chart_data = employee_grouped_types.get_group(activity_type_name)
+
+            fig.add_trace(
+                go.Bar(
+                    name=activity_type_name,
+                    x=chart_data["Employee"].values,
+                    y=chart_data["Amount"].values,
+                    customdata=chart_data["Time"],
+                ),
+                1,
+                2,
+            )
+        fig.update_xaxes(title_text="Employee", row=1, col=2)
+        fig.update_yaxes(title_text="Service Fee", row=1, col=2)
+        fig.update_traces(
+            hovertemplate="Amount: %{value:.2f}: €<br>Time: %{customdata:.2f} h",
+            row=1,
+            col=2,
+        )
+        fig.update_layout(barmode="stack")
         charts.append([project, fig.to_html(full_html=False)])
     return charts

@@ -4,15 +4,17 @@ project_time_cost_group_by_department = text(
     """
         SELECT
             Project.name AS project_name,
-            Employee.department,
+            Department.name,
             SUM(TIMESTAMPDIFF(SECOND, Activity.start_time, Activity.end_time) / 3600) AS time,
-            SUM(TIMESTAMPDIFF(SECOND, Activity.start_time, Activity.end_time) * ActivityType.salary / 3600) AS cost
+            SUM(TIMESTAMPDIFF(SECOND, Activity.start_time, Activity.end_time) * ActivityCategory.rate / 3600) AS cost
         FROM
             Project
-        JOIN Activity ON Project.id = Activity.project_id
-        JOIN Employee ON Activity.employee_id = Employee.id
-        JOIN ActivityType ON Activity.type_id = ActivityType.id
-        GROUP BY Project.name, Employee.department;
+        LEFT JOIN Activity ON Project.id = Activity.project_id
+        LEFT JOIN Employee ON Activity.employee_id = Employee.id
+        LEFT JOIN Department on Employee.department_id = Department.id
+        LEFT JOIN ActivityType ON Activity.type_id = ActivityType.id
+        LEFT JOIN ActivityCategory ON ActivityType.activity_category_id = ActivityCategory.id
+        GROUP BY Project.name, Department.name;
 """
 )
 
@@ -22,27 +24,31 @@ project_time_cost_group_by_employee = text(
             Project.name AS project_name,
             Employee.name AS employee_name,
             SUM(TIMESTAMPDIFF(SECOND, Activity.start_time, Activity.end_time) / 3600) AS time,
-            SUM(TIMESTAMPDIFF(SECOND, Activity.start_time, Activity.end_time) * ActivityType.salary / 3600) AS cost
+            SUM(TIMESTAMPDIFF(SECOND, Activity.start_time, Activity.end_time) * ActivityCategory.rate / 3600) AS cost,
+            ActivityType.name AS activity_type
         FROM
             Project
-        JOIN Activity ON Project.id = Activity.project_id
-        JOIN Employee ON Activity.employee_id = Employee.id
-        JOIN ActivityType ON Activity.type_id = ActivityType.id
-        GROUP BY Project.name, Employee.name;
+        LEFT JOIN Activity ON Project.id = Activity.project_id
+        LEFT JOIN Employee ON Activity.employee_id = Employee.id
+        LEFT JOIN ActivityType ON Activity.type_id = ActivityType.id
+        LEFT JOIN ActivityCategory ON ActivityType.activity_category_id = ActivityCategory.id
+        GROUP BY Project.name, Employee.name, ActivityType.name;
 """
 )
 
 total_time_cost_group_by_department = text(
     """
         SELECT
-            Employee.department AS name,
+            Department.name AS name,
             SUM(TIMESTAMPDIFF(SECOND, Activity.start_time, Activity.end_time) / 3600) AS time,
-            SUM(TIMESTAMPDIFF(SECOND, Activity.start_time, Activity.end_time) * ActivityType.salary / 3600) AS cost
+            SUM(TIMESTAMPDIFF(SECOND, Activity.start_time, Activity.end_time) * ActivityCategory.rate / 3600) AS cost
         FROM
             Activity
-        JOIN Employee ON Activity.employee_id = Employee.id
-        JOIN ActivityType ON Activity.type_id = ActivityType.id
-        GROUP BY Employee.department;
+        LEFT JOIN Employee ON Activity.employee_id = Employee.id
+        LEFT JOIN Department on Employee.department_id = Department.id
+        LEFT JOIN ActivityType ON Activity.type_id = ActivityType.id
+        LEFT JOIN ActivityCategory ON ActivityType.activity_category_id = ActivityCategory.id
+        GROUP BY Department.name;
 """
 )
 
@@ -51,11 +57,12 @@ total_time_cost_group_by_employee = text(
         SELECT
             Employee.name AS name,
             SUM(TIMESTAMPDIFF(SECOND, Activity.start_time, Activity.end_time) / 3600) AS time,
-            SUM(TIMESTAMPDIFF(SECOND, Activity.start_time, Activity.end_time) * ActivityType.salary / 3600) AS cost
+            SUM(TIMESTAMPDIFF(SECOND, Activity.start_time, Activity.end_time) * ActivityCategory.rate / 3600) AS cost
         FROM
             Activity
-        JOIN Employee ON Activity.employee_id = Employee.id
-        JOIN ActivityType ON Activity.type_id = ActivityType.id
+        LEFT JOIN Employee ON Activity.employee_id = Employee.id
+        LEFT JOIN ActivityType ON Activity.type_id = ActivityType.id
+        LEFT JOIN ActivityCategory ON ActivityType.activity_category_id = ActivityCategory.id
         GROUP BY Employee.name;
 """
 )
@@ -63,13 +70,14 @@ total_time_cost_group_by_employee = text(
 total_time_cost_group_by_category = text(
     """
         SELECT
-            Activity.category,
-            SUM(TIMESTAMPDIFF(SECOND, Activity.start_time, Activity.end_time) / 3600) AS required_time,
-            SUM(TIMESTAMPDIFF(SECOND, Activity.start_time, Activity.end_time) * ActivityType.salary / 3600) AS costs
+            ActivityType.name,
+            SUM(TIMESTAMPDIFF(SECOND, Activity.start_time, Activity.end_time) / 3600) AS time,
+            SUM(TIMESTAMPDIFF(SECOND, Activity.start_time, Activity.end_time) * ActivityCategory.rate / 3600) AS costs
         FROM
             Activity
-        JOIN ActivityType ON Activity.type_id = ActivityType.id
+        LEFT JOIN ActivityType ON Activity.type_id = ActivityType.id
+        LEFT JOIN ActivityCategory ON ActivityType.activity_category_id = ActivityCategory.id
         GROUP BY
-            Activity.category;
+            ActivityType.name;
 """
 )

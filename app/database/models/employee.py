@@ -1,17 +1,12 @@
 from ._base import *
-from enum import Enum as PyEnum
-
-
-class Department(PyEnum):
-    MARKETING = "marketing"
-    PRODUKTION = "production"
-    DEVELOPMENT = "development"
-    MANAGEMENT = "management"
-    SERVICE = "service"
+from .department import Department
 
 
 class Employee(Base, Default):
-    name = Column(String(64), unique=True, nullable=False) # unique name for testing
+    name = Column(String(64), unique=True, nullable=False)  # unique name for testing
     salary = Column(Integer, nullable=False)
-    department = Column(Enum(Department), nullable=False)
+    department_id = Column(Integer, ForeignKey("Department.id"), nullable=False)
 
+    _Department: Mapped[Department] = relationship(
+        Department, uselist=False, single_parent=True
+    )

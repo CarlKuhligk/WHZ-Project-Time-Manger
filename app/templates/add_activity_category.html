@@ -3,34 +3,26 @@
 
 {% include 'flash_message.html' %}
 
-<h2>Add Project</h2>
+<h2>Add Activity Category</h2>
 
 <form method="POST">
     {{ form.hidden_tag() }}
     <div class="row row-cols-3 align-items-center">
         <div class="col-auto">
             <div> {{ form.name.label(class="col-form-label") }}</div>
-            <div> {{ form.customer.label(class="col-form-label") }}</div>
-            <div> {{ form.project_category.label(class="col-form-label") }}</div>
+            <div> {{ form.rate.label(class="col-form-label") }}</div>
         </div>
         <div class="col-auto">
             <div> {{ form.name(class="form-control") }}</div>
-            <div> {{ form.customer(class="form-control") }}</div>
-            <div> {{ form.project_category(class="form-control") }}</div>
+            <div> {{ form.rate(class="form-control") }}</div>
         </div>
         <div class="col-auto">
-            <div class="col-form-label">Required</div>
             <div class="col-form-label">Required</div>
             <div class="col-form-label">Required</div>
         </div>
     </div>
-
     <br>
     {{ form.submit(class="btn btn-secondary") }}
 
 </form>
-
-
-
-
 {% endblock %}

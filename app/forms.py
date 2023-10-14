@@ -11,7 +11,23 @@ from wtforms.validators import InputRequired
 
 class NewActivityTypeForm(FlaskForm):
     name = StringField("Name:", validators=[InputRequired()])
-    salary = IntegerField("Salary:", validators=[InputRequired()])
+    activity_category = SelectField("Category:", validators=[InputRequired()])
+    submit = SubmitField("Submit")
+
+
+class NewActivityCategoryForm(FlaskForm):
+    name = StringField("Name:", validators=[InputRequired()])
+    rate = IntegerField("Rate:", validators=[InputRequired()])
+    submit = SubmitField("Submit")
+
+
+class NewDepartmentForm(FlaskForm):
+    name = StringField("Name:", validators=[InputRequired()])
+    submit = SubmitField("Submit")
+
+
+class NewProjectCategoryForm(FlaskForm):
+    name = StringField("Name:", validators=[InputRequired()])
     submit = SubmitField("Submit")
 
 
@@ -30,7 +46,7 @@ class NewCustomerForm(FlaskForm):
 class NewProjectForm(FlaskForm):
     name = StringField("Name:", validators=[InputRequired()])
     customer = SelectField("Customer:", validators=[InputRequired()])
-    category = SelectField("Category:", validators=[InputRequired()])
+    project_category = SelectField("Category:", validators=[InputRequired()])
     submit = SubmitField("Submit")
 
 
@@ -38,7 +54,6 @@ class NewActivityForm(FlaskForm):
     employee = SelectField("Employee:", validators=[InputRequired()])
     project = SelectField("Project:", validators=[InputRequired()])
     activity_type = SelectField("Type:", validators=[InputRequired()])
-    category = SelectField("Category:", validators=[InputRequired()])
     start = TimeField("Start Time:", validators=[InputRequired()])
     end = TimeField("End Time:", validators=[InputRequired()])
     submit = SubmitField("Submit")

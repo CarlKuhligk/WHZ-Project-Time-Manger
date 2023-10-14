@@ -13,12 +13,18 @@
                         Add
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ url_for('add_activity_category')}}">Activity Category</a>
+                        </li>
                         <li><a class="dropdown-item" href="{{ url_for('add_activity_type')}}">Activity Type</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{{ url_for('add_department')}}">Department</a>
                         </li>
                         <li><a class="dropdown-item" href="{{ url_for('add_employee')}}">Employee</a>
                         </li>
                         <li><a class="dropdown-item" href="{{ url_for('add_customer')}}">Customer</a>
                         </li>
+                        <li><a class="dropdown-item" href="{{ url_for('add_project_category')}}">Project Category</a>
+                        </li>                        
                         <li><a class="dropdown-item" href="{{ url_for('add_project')}}">Project</a>
                         </li>
                     </ul>
