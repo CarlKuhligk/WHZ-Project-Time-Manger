@@ -47,7 +47,7 @@ The webinterface is created with flask. The diagrams are created with pltoly. Th
 [Interface](https://whz-db-project.kuhligk.de/)
 
 
-[phpMyAdmin](https://whz-db-inspect.kuhligk.de/)
+[phpMyAdmin](https://whz-db-inspect.kuhligk.de/) (read only)
 - host: mariadb
 - user: spectator
 - no password
