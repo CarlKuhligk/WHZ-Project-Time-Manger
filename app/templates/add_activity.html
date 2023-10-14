@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% include 'flash_message.html' %}
+
+<h2>Add Activity</h2>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="row row-cols-3 align-items-center">
+        <div class="col-auto">
+            <div> {{ form.employee.label(class="col-form-label") }}</div>
+            <div> {{ form.project.label(class="col-form-label") }}</div>
+            <div> {{ form.category.label(class="col-form-label") }}</div>
+            <div> {{ form.activity_type.label(class="col-form-label") }}</div>
+            <div> {{ form.start.label(class="col-form-label") }}</div>
+            <div> {{ form.end.label(class="col-form-label") }}</div>
+        </div>
+        <div class="col-auto">
+            <div> {{ form.employee(class="form-control") }}</div>
+            <div> {{ form.project(class="form-control") }}</div>
+            <div> {{ form.category(class="form-control") }}</div>
+            <div> {{ form.activity_type(class="form-control") }}</div>
+            <div> {{ form.start(type="time", class="form-control") }}</div>
+            <div> {{ form.end(type="time", class="form-control") }}</div>
+        </div>
+        <div class="col-auto">
+            <div class="col-form-label">Required</div>
+            <div class="col-form-label">Required</div>
+            <div class="col-form-label">Required</div>
+            <div class="col-form-label">Required</div>
+            <div class="col-form-label">Required</div>
+            <div class="col-form-label">Required</div>
+        </div>
+    </div>
+    <br>
+    {{ form.submit(class="btn btn-secondary") }}
+
+</form>
+{% endblock %}

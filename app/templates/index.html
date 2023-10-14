@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h3>Summary</h3>
+    {{summary_chart | safe}}
+
+    <h3>Projects</h3>
+    <table class="table table-hover">
+        <thead class="table-active">
+            <tr>
+                <th scope="col">Project</th>
+                <th scope="col">Distributions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for chart_data in project_chats %}
+            <tr>
+                <td scope="col" class="narrow-column">{{chart_data[0]}}</td>
+                <td scope="col">{{chart_data[1] | safe}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

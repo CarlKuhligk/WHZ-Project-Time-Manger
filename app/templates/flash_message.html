@@ -1,0 +1,14 @@
+{% for message in get_flashed_messages() %}
+<div id="alert" class="alert alert-{{message.category}} alert-dismissible fade show" role="alert">
+    <h4 class="alert-heading">{{message.title}}</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <p>{{ message.text }}</p>
+    <hr>
+    <p class="mb-0">{{message.details}}</p>
+</div>
+<script type="text/javascript">
+    setTimeout(function () {
+        $('#alert').alert('close');
+    }, 2000);
+</script>
+{% endfor %}

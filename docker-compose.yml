@@ -1,0 +1,53 @@
+version: '3.1'
+services:
+  project-time-manager:
+    build: .
+    container_name: project-time-manager-app
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      TZ: Europe/Berlin
+      DB_USER : admin
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST : mariadb
+      DB_PORT : 3306
+      DATABASE : project-time-manager
+
+    networks:
+      db_net:
+
+  mariadb:
+    image: mariadb
+    container_name: project-time-manager-db
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: project-time-manager
+      MARIADB_USER: admin    
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      TZ: Europe/Berlin
+    networks:
+      db_net:
+    ports:
+      - 3307:3306
+    volumes:
+      - db:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: project-time-manager-phpmyadmin
+    restart: always
+    ports:
+      - 8033:80
+    environment:
+      PMA_ARBITRARY: 1
+      TZ: Europe/Berlin
+    networks:
+      db_net:
+
+volumes:
+  db:
+
+networks:
+  db_net:      

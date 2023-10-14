@@ -1,0 +1,7 @@
+.narrow-column {
+    width: 10%; /* Passen Sie die Breite nach Bedarf an. */
+    vertical-align: middle;
+    text-align: center;
+    font-weight: bold;
+    font-size: medium;
+}
