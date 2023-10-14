@@ -1,24 +1,56 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <div class="container">
     <h3>Summary</h3>
-    {{summary_chart | safe}}
+    <div class="charts_row">
+        <div class="s_chart" id="summary_chart_dep">
+            <script>
+                var graphs = {{ summary_chart[0] | safe}};
+                Plotly.plot('summary_chart_dep', graphs, {});
+            </script>
+        </div>
+        <div class="s_chart" id="summary_chart_emp">
+            <script>
+                var graphs = {{ summary_chart[1] | safe}};
+                Plotly.plot('summary_chart_emp', graphs, {});
+            </script>
+        </div>
+        <div class="s_chart" id="summary_chart_cat">
+            <script>
+                var graphs = {{ summary_chart[2] | safe}};
+                Plotly.plot('summary_chart_cat', graphs, {});
+            </script>
+        </div>
+    </div>
 
     <h3>Projects</h3>
     <table class="table table-hover">
         <thead class="table-active">
             <tr>
                 <th scope="col">Project</th>
-                <th scope="col">Service fees grouped by Department / Employee</th>
+                <th scope="col">Service fees</th>
             </tr>
         </thead>
         <tbody>
             {% for chart_data in project_chats %}
             <tr>
                 <td scope="col" class="narrow-column">{{chart_data[0]}}</td>
-                <td scope="col">{{chart_data[1] | safe}}</td>
+                <td scope="col" class="charts_row">
+                    <div class="p_chart" id="{{chart_data[0]}}_dep_chart">
+                        <script>
+                            var graphs = {{ chart_data[1] | safe}};
+                            Plotly.plot('{{chart_data[0]}}_dep_chart', graphs, {});
+                        </script>
+                    </div>
+                    <div class="p_chart" id="{{chart_data[0]}}_emp_chart">
+                        <script>
+                            var graphs = {{ chart_data[2] | safe}};
+                            Plotly.plot('{{chart_data[0]}}_emp_chart', graphs, {});
+                        </script>
+                    </div>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

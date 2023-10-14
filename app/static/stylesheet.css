@@ -5,3 +5,8 @@
     font-weight: bold;
     font-size: medium;
 }
+
+
+.charts_row{
+    display: inline-block;
+}
