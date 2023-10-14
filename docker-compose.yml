@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   project-time-manager:
-    build: https://github.com/CarlKuhligk/WHZ-Project-Time-Manger.git
+    build: .
     container_name: project-time-manager-app
     restart: always
     ports:
