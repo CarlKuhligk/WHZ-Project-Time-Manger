@@ -10,13 +10,9 @@ import env
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "r8qXr7igeahMWRCNJnR7"
-# app.config[
-#     "SQLALCHEMY_DATABASE_URI"
-# ] = f"mariadb+mariadbconnector://{env.DB_USER}:{env.DB_PASSWORD}@{env.DB_HOST}:{env.DB_PORT}/{env.DATABASE}"
-
 app.config[
     "SQLALCHEMY_DATABASE_URI"
-] = f"mariadb+mariadbconnector://admin:p4ssw0rd@172.0.4.2:3006/project-time-manager"
+] = f"mariadb+mariadbconnector://{env.DB_USER}:{env.DB_PASSWORD}@{env.DB_HOST}:{env.DB_PORT}/{env.DATABASE}"
 
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -212,8 +208,6 @@ def add_activity():
 
 if __name__ == "__main__":
     print("stating server")
-    # from waitress import serve
+    from waitress import serve
 
-    # serve(app, host="0.0.0.0", port=5000)
-
-    app.run(host="0.0.0.0", port=5000)
+    serve(app, host="0.0.0.0", port=5000)
