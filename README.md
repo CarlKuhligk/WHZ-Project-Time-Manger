@@ -24,6 +24,7 @@ It is necessary to document some assumptions to build a satisfying solution.
 
 1. This model has been designed to fulfill specific requirements rather than being developed for real-world use cases.
 2. Information can only be added, not modified.
+3. There will be no database migration
 
 ###Entity Relationship Diagram
 <br>
@@ -39,9 +40,14 @@ The project analysis is performed with simple sql commands. [Here you can see th
 
 The webinterface is created with flask. The diagrams are created with pltoly. The python database interaction is realized with sqlalchemy. phpMyAdmin is used to see what is going on in the database.
 
+![web ui](https://raw.githubusercontent.com/CarlKuhligk/WHZ-Project-Time-Manger/main/doc/sn7hTxdYdJ.png?token=GHSAT0AAAAAACI4PZXH4VN4CCK73WOHZBHWZJKXBIQ)
+
+### Demo
+
+[Interface](https://whz-db-project.kuhligk.de/)
 
 
-
-[Interface Demo](https://whz-db-project.kuhligk.de/)
-
-[phpMyAdmin Demo](https://whz-db-inspect.kuhligk.de/)
+[phpMyAdmin](https://whz-db-inspect.kuhligk.de/)
+- host: mariadb
+- user: spectator
+- no password
