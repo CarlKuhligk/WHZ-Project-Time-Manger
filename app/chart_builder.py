@@ -99,7 +99,7 @@ def get_summary_chats_as_html():
         ],
     )
 
-    return fig.to_html()
+    return fig.to_html(full_html=False)
 
 
 def get_project_time_cost_group_by_department_df():
@@ -166,5 +166,5 @@ def get_project_chats_as_html():
         fig.update_traces(
             hovertemplate="%{label}: %{percent} <br> Amount: %{value:.2f}: € <br> Time: %{customdata:.2f} h",
         )
-        charts.append([project,fig.to_html()])
+        charts.append([project, fig.to_html(full_html=False)])
     return charts
