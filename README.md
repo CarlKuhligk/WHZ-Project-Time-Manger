@@ -29,14 +29,14 @@ It is necessary to document some assumptions to build a satisfying solution.
 ### Entity Relationship Diagram
 <br>
 
-![SVG-Bild](https://raw.githubusercontent.com/CarlKuhligk/WHZ-Project-Time-Manger/main/doc/ERD%20-%20Simple.drawio.svg)
+![SVG-Bild](https://raw.githubusercontent.com/CarlKuhligk/WHZ-Project-Time-Manger/main/doc/ERD%20-%20Simple.drawio.png)
 
 #### phpMyAdmin View
 ![SVG-Bild](https://raw.githubusercontent.com/CarlKuhligk/WHZ-Project-Time-Manger/main/doc/tAXTvzDYnj.png)
 
 #### Chen Notation
 
-![SVG-Bild](https://raw.githubusercontent.com/CarlKuhligk/WHZ-Project-Time-Manger/main/doc/ERD%20Chen.drawio.svg)
+![SVG-Bild](https://raw.githubusercontent.com/CarlKuhligk/WHZ-Project-Time-Manger/main/doc/ERD%20Chen.drawio.png)
 
 ### Dataprocessing
 An interface allows the user to create new records.
