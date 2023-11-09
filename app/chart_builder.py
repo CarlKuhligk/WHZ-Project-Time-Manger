@@ -197,6 +197,10 @@ def get_project_chats_as_html():
         department_data = department_grouped.get_group(project_name)
         employee_data = employee_grouped.get_group(project_name)
 
+        department_data = department_data.dropna()
+        if department_data.empty:
+            continue
+
         fig_1 = go.Figure()
         fig_1.add_trace(
             go.Pie(
