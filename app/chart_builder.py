@@ -5,12 +5,41 @@ import json
 import plotly
 import database.query as querry
 
-custom_colormap = ['#FF5733', '#FFC300', '#33FF57', '#33B5FF', '#FF33E8',
-          '#FF5733', '#33B5FF', '#FFC300', '#33FF57', '#FF5733',
-          '#33FF57', '#FFC300', '#33B5FF', '#33FF57', '#FF5733',
-          '#FFC300', '#33FF57', '#33B5FF', '#FF5733', '#33FF57',
-          '#FFC300', '#33B5FF', '#33FF57', '#FF5733', '#33FF57',
-          '#FFC300', '#33B5FF', '#33FF57', '#FF5733', '#33B5FF']
+custom_colormap = [
+    "#7EA9E0",
+    "#D87EE0",
+    "#7EE0BB",
+    "#E0BE7E",
+    "#ABE07E",
+    "#B87BE0",
+    "#7BC7E0",
+    "#E07C7C",
+    "#D3E07B",
+    "#E04F7B",
+    #
+    "#0B6DE0",
+    "#E02816",
+    "#E09816",
+    "#00DBE0",
+    "#0BC06C",
+    "#E00BB3",
+    "#8F01E0",
+    "#E03400",
+    "#3FE016",
+    "#BAE00B",
+    #
+    "#93FF01",
+    "#01FFB0",
+    "#C800FE",
+    "#FF5301",
+    "#2F00FF",
+    "#FF0400",
+    "#FFC000",
+    "#FF01DB",
+    "#FFFF00",
+    "#33FF57",
+]
+
 
 def create_dataframe(data, columns, dtypes):
     df = pd.DataFrame(data, columns=columns)
@@ -58,19 +87,20 @@ def get_summary_chats_as_html():
     employee_df = get_total_time_cost_group_by_employee_df()
     category_df = get_total_time_cost_group_by_category_df()
 
-
     fig_1 = go.Figure()
     fig_1.add_trace(
         go.Pie(
             labels=department_df["Department"],
             values=department_df["Amount"],
             name="Department",
-            textinfo='percent+label',
+            textinfo="percent+label",
             customdata=department_df["Time"],
-            marker=dict(colors= custom_colormap[:10])
+            marker=dict(colors=custom_colormap[:10]),
         )
     )
-    fig_1.add_annotation(dict(text="Departments", x=0.5, y=1.3, font_size=20, showarrow=False),)
+    fig_1.add_annotation(
+        dict(text="Departments", x=0.5, y=1.3, font_size=20, showarrow=False),
+    )
 
     fig_2 = go.Figure()
     fig_2.add_trace(
@@ -78,13 +108,14 @@ def get_summary_chats_as_html():
             labels=employee_df["Employee"],
             values=employee_df["Amount"],
             name="Employee",
-            textinfo='percent+label',
+            textinfo="percent+label",
             customdata=employee_df["Time"],
-            marker=dict(colors=custom_colormap[10:20])
+            marker=dict(colors=custom_colormap[10:20]),
         )
     )
-    fig_2.add_annotation(dict(text="Employes", x=0.5, y=1.3, font_size=20, showarrow=False))
-
+    fig_2.add_annotation(
+        dict(text="Employes", x=0.5, y=1.3, font_size=20, showarrow=False)
+    )
 
     fig_3 = go.Figure()
     fig_3.add_trace(
@@ -92,13 +123,14 @@ def get_summary_chats_as_html():
             labels=category_df["Category"],
             values=category_df["Amount"],
             name="Category",
-            textinfo='percent+label',
+            textinfo="percent+label",
             customdata=category_df["Time"],
-            marker=dict(colors= custom_colormap[20:])
+            marker=dict(colors=custom_colormap[20:]),
         )
     )
-    fig_3.add_annotation(dict(text="Categories", x=0.5, y=1.3, font_size=20, showarrow=False))
-
+    fig_3.add_annotation(
+        dict(text="Categories", x=0.5, y=1.3, font_size=20, showarrow=False)
+    )
 
     fig_1.update_traces(
         hovertemplate="%{label}: %{percent} <br> Amount: %{value:.2f} € <br> Time: %{customdata:.2f} h",
@@ -110,8 +142,11 @@ def get_summary_chats_as_html():
         hovertemplate="%{label}: %{percent} <br> Amount: %{value:.2f} € <br> Time: %{customdata:.2f} h",
     )
 
-
-    return [json.dumps(fig_1, cls=plotly.utils.PlotlyJSONEncoder),json.dumps(fig_2, cls=plotly.utils.PlotlyJSONEncoder),json.dumps(fig_3, cls=plotly.utils.PlotlyJSONEncoder)]
+    return [
+        json.dumps(fig_1, cls=plotly.utils.PlotlyJSONEncoder),
+        json.dumps(fig_2, cls=plotly.utils.PlotlyJSONEncoder),
+        json.dumps(fig_3, cls=plotly.utils.PlotlyJSONEncoder),
+    ]
 
 
 def get_project_time_cost_group_by_department_df():
@@ -148,6 +183,7 @@ def format_number(n):
     else:
         return f"{n / 1_000_000_000:.2f}B"
 
+
 def get_project_chats_as_html():
     department_df = get_project_time_cost_group_by_department_df()
     department_grouped = department_df.groupby("Project")
@@ -167,10 +203,10 @@ def get_project_chats_as_html():
                 labels=department_data["Department"],
                 values=department_data["Amount"],
                 name="Department",
-                textinfo='percent+label',
+                textinfo="percent+label",
                 customdata=department_data["Time"],
                 hole=0.3,
-                marker=dict(colors= custom_colormap[:10])
+                marker=dict(colors=custom_colormap[:10]),
             )
         )
         fig_1.update_xaxes(title_text="Departments")
@@ -179,23 +215,23 @@ def get_project_chats_as_html():
         )
 
         fig_1.add_annotation(
-                dict(
-                    text=f"{format_number(sum(department_data["Amount"]))} €",
-                    x=0.5,
-                    y=0.5,
-                    font_size=18,
-                    showarrow=False,
-                )
+            dict(
+                text=f"""{format_number(sum(department_data["Amount"]))} €""",
+                x=0.5,
+                y=0.5,
+                font_size=18,
+                showarrow=False,
+            )
         )
 
         fig_1.add_annotation(
-                dict(
-                    text=f"Grouped by Department",
-                    x=0.5,
-                    y=1.2,
-                    font_size=20,
-                    showarrow=False,
-                )
+            dict(
+                text=f"Grouped by Department",
+                x=0.5,
+                y=1.2,
+                font_size=20,
+                showarrow=False,
+            )
         )
 
         employee_grouped_types = employee_data.groupby("Type")
@@ -215,7 +251,7 @@ def get_project_chats_as_html():
                     x=chart_data["Employee"].values,
                     y=chart_data["Amount"].values,
                     customdata=chart_data["Time"],
-                    marker_color =color
+                    marker_color=color,
                 )
             )
 
@@ -227,18 +263,22 @@ def get_project_chats_as_html():
         fig_2.update_layout(barmode="stack")
 
         fig_2.add_annotation(
-                dict(
-                    text=f"Grouped by Employee",
-                    xref='paper',
-                    yref='paper',
-                    x=0.5,
-                    y=1.2,
-                    font_size=20,
-                    showarrow=False,
-                )
+            dict(
+                text="Grouped by Employee",
+                xref="paper",
+                yref="paper",
+                x=0.5,
+                y=1.2,
+                font_size=20,
+                showarrow=False,
+            )
         )
 
         charts.append(
-            [project_name, json.dumps(fig_1, cls=plotly.utils.PlotlyJSONEncoder),json.dumps(fig_2, cls=plotly.utils.PlotlyJSONEncoder)]
+            [
+                project_name,
+                json.dumps(fig_1, cls=plotly.utils.PlotlyJSONEncoder),
+                json.dumps(fig_2, cls=plotly.utils.PlotlyJSONEncoder),
+            ]
         )
     return charts
