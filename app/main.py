@@ -208,7 +208,6 @@ def add_activity():
 
 if __name__ == "__main__":
     print("stating server")
-    app.run()
-    # from waitress import serve
+    from waitress import serve
 
-    # serve(app, host="0.0.0.0", port=5000)
+    serve(app, host="0.0.0.0", port=5000)
