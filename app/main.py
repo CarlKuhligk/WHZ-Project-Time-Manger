@@ -8,6 +8,9 @@ import forms
 import database.models as models
 import env
 
+import signal
+from waitress import serve
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "r8qXr7igeahMWRCNJnR7"
 app.config[
@@ -206,8 +209,12 @@ def add_activity():
     return render_template("add_activity.html", form=form)
 
 
-if __name__ == "__main__":
-    print("stating server")
-    from waitress import serve
+def signal_handler(signal, frame):
+    print("Server exits")
+    raise SystemExit
 
+
+if __name__ == "__main__":
+    print("Server starts")
+    signal.signal(signal.SIGINT, signal_handler)
     serve(app, host="0.0.0.0", port=5000)
