@@ -1,12 +1,66 @@
 .narrow-column {
-    width: 10%; /* Passen Sie die Breite nach Bedarf an. */
+    width: 10%;
+    /* Passen Sie die Breite nach Bedarf an. */
     vertical-align: middle;
     text-align: center;
     font-weight: bold;
     font-size: medium;
 }
 
+.charts_row {
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+}
 
-.charts_row{
-    display: inline-block;
+.s_chart,
+.p_chart {
+    width: 50%;
+    max-width: 100%;
+    height: 40%;
+}
+
+body,
+table {
+    background-color: #111111;
+    color: #cccccc;
+}
+
+table {
+    width: 100%;
+}
+
+.form-control {
+    background-color: #111111;
+    border-color: #283442;
+}
+
+.rounded-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.rounded-table th,
+.rounded-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    border-radius: 0;
+    /* Setzt die abgerundeten Ecken zurück */
+}
+
+.rounded-table tr {
+    border-collapse: collapse;
+}
+
+
+/* Erstellen Sie eine untere abgerundete Ecke für die letzten Zellen in der letzten Zeile */
+.rounded-table tr:first-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+.rounded-table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
 }

@@ -88,6 +88,10 @@ def get_summary_chats_as_html():
     category_df = get_total_time_cost_group_by_category_df()
 
     fig_1 = go.Figure()
+    fig_1.update_layout(
+        template="plotly_dark",
+    )
+
     fig_1.add_trace(
         go.Pie(
             labels=department_df["Department"],
@@ -103,6 +107,10 @@ def get_summary_chats_as_html():
     )
 
     fig_2 = go.Figure()
+    fig_2.update_layout(
+        template="plotly_dark",
+    )
+
     fig_2.add_trace(
         go.Pie(
             labels=employee_df["Employee"],
@@ -118,6 +126,9 @@ def get_summary_chats_as_html():
     )
 
     fig_3 = go.Figure()
+    fig_3.update_layout(
+        template="plotly_dark",
+    )
     fig_3.add_trace(
         go.Pie(
             labels=category_df["Category"],
@@ -133,13 +144,13 @@ def get_summary_chats_as_html():
     )
 
     fig_1.update_traces(
-        hovertemplate="%{label}: %{percent} <br> Amount: %{value:.2f} € <br> Time: %{customdata:.2f} h",
+        hovertemplate="%{label}: %{percent} <br> Amount: %{value:.2f} € <br> Time: %{customdata:.2f} h <extra></extra>",
     )
     fig_2.update_traces(
-        hovertemplate="%{label}: %{percent} <br> Amount: %{value:.2f} € <br> Time: %{customdata:.2f} h",
+        hovertemplate="%{label}: %{percent} <br> Amount: %{value:.2f} € <br> Time: %{customdata:.2f} h <extra></extra>",
     )
     fig_3.update_traces(
-        hovertemplate="%{label}: %{percent} <br> Amount: %{value:.2f} € <br> Time: %{customdata:.2f} h",
+        hovertemplate="%{label}: %{percent} <br> Amount: %{value:.2f} € <br> Time: %{customdata:.2f} h <extra></extra>",
     )
 
     return [
@@ -202,6 +213,9 @@ def get_project_chats_as_html():
             continue
 
         fig_1 = go.Figure()
+        fig_1.update_layout(
+            template="plotly_dark",
+        )
         fig_1.add_trace(
             go.Pie(
                 labels=department_data["Department"],
@@ -215,12 +229,12 @@ def get_project_chats_as_html():
         )
         fig_1.update_xaxes(title_text="Departments")
         fig_1.update_traces(
-            hovertemplate="%{label}<br>Amount: %{value:.2f}: €<br>Time: %{customdata:.2f} h"
+            hovertemplate="%{label}<br>Amount: %{value:.2f}: €<br>Time: %{customdata:.2f} h <extra></extra>",
         )
 
         fig_1.add_annotation(
             dict(
-                text=f"""{format_number(sum(department_data["Amount"]))} €""",
+                text=f"""{format_number(sum(department_data["Amount"]))}""",
                 x=0.5,
                 y=0.5,
                 font_size=18,
@@ -242,6 +256,7 @@ def get_project_chats_as_html():
         activity_type_names = list(employee_grouped_types.groups.keys())
 
         fig_2 = go.Figure()
+        fig_2.update_layout(template="plotly_dark")
 
         category_colors = custom_colormap[20:]
 
@@ -262,7 +277,7 @@ def get_project_chats_as_html():
         fig_2.update_xaxes(title_text="Employee")
         fig_2.update_yaxes(title_text="Service Fee")
         fig_2.update_traces(
-            hovertemplate="Amount: %{value:.2f}: €<br>Time: %{customdata:.2f} h",
+            hovertemplate="Amount: %{value:.2f}: €<br>Time: %{customdata:.2f} h <extra></extra>",
         )
         fig_2.update_layout(barmode="stack")
 
