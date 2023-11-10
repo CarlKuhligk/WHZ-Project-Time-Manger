@@ -33,7 +33,15 @@ table {
 .form-control {
     background-color: #111111;
     border-color: #283442;
+    color: #cccccc;
 }
+
+.col-form-dropdown,
+option {
+    background-color: #111111;
+    color: #cccccc;
+}
+
 
 .rounded-table {
     border-collapse: collapse;
